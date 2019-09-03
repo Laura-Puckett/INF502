@@ -1,33 +1,4 @@
-# Git/GitHub Assignment
-
-* **INDIVIDUAL ASSIGNMENT**
-* **Deadline**: Sept-9th 11:59PM
-* **How to submit**: For each empty grey box, please provide with an answer to the item in a document. Do the following to *submit* the **Part 1** of your assignment:
-1. Create a new repository under your GitHub account called *INF502*; 
-2. create a file called *"Assignment1.md"* and paste your answers there (tip: click on *"Raw"* at the right-top of this file to get the markdown source); 
-3. invite me to see your new repository. This will allow you to keep a private repository that 
-
-For **Part 2** the pull request created will the submission (except for item 4, which you need to add to the end of the Assignemnt1.md).
-
-* **Value**: Part of homework grade
-
-## Description
-This assignment is composed of two parts. 
-- [Part 1](#Part-1-Dealing-with-git) consists of executing a sequence of commands and giving explanations about the commands you have to run. 
-For each item in the assignment, please provide appropriate explanation and/or the details requested.
-- [Part 2](#Part-2-Using-GitHub) consists of creating a Markdown file on a fork of this course and creating a pull request towards this repo.
-
 ### Part 1: Dealing with git
-
-To conduct this, you will have to download [handson.zip](handson.zip) and unzip it.
-handson folder is a git repository. Using the command line change the directory to "handson/"
-
-The empty boxes
-```
-
-```
-represent the content you need to fill and post on your private repository
-
 
 1. Draw a diagram of the commits and branches in repository.
 
@@ -36,12 +7,15 @@ represent the content you need to fill and post on your private repository
     - Use `git log --decorate` to explore the structure of commits.
 
 ```
-
+                                                - "Making a small change here" (MASTER branch)
+"create all files" - "Added a draft of A"  -< 
+                                                -  "Adding some more knowledge to the function" (Math branch)
 
 ```
 
 2. Try `git log --graph --all` to see the commit tree. What do you see?
 ```
+I see a line for the shared history of the two branches, and red lines after the math branch forks off of the master branch
 
 
 ```
@@ -50,14 +24,14 @@ represent the content you need to fill and post on your private repository
    Summarize the difference from master to the other branch.
 
 ```
-
+the calculate_this function has code to caluclate a sum for the master version, but just prints text for the math version. Also, the math version has an extra line of a different file. 
 
 ```
 
 4. Write a command sequence to merge the non-master branch into `master`
 
 ```
-
+git merge <math>
 
 ```
 
@@ -66,7 +40,7 @@ represent the content you need to fill and post on your private repository
 and (ii) change to this branch
 
 ```
-
+git checkout -b <math> <master>
 
 ```
    
@@ -113,19 +87,6 @@ print 'hello world!'
 
 ### Part 2: Using GitHub
 
-The goal of this assignment is to put you in touch with the fork-pullrequest process, with an extra of dealing a little bit with Markdown. To learn more about Markdown [click here](https://guides.github.com/features/mastering-markdown/).
-
-**You must fork this repo and submit a pull request back**
-
-1. Into the students folder, create a file called LASTNAME_FIRSTNAME.md (please change LASTNAME_FIRSTNAME for your actual last and first names). 
-2. Use Markdown to structure the following information about the last paper you've read (you can structure your markdown the way you want):
-- Title
-- Venue (journal name/conference)
-- Number of pages
-- 3 outcomes of the paper
-- link to the paper online
-
-3. Send your file back to this repository until creating a pull request (your pull request needs to appear [here](https://github.com/igorsteinmacher/CS502-Fall2019/pulls)).
 
 4. Report your experience of making this submission, including the steps followed, commands used, and hurdles faced (within the file you created for the **Part 1**.
 ```
