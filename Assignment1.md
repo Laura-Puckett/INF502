@@ -134,7 +134,7 @@ git merge math
 
 4. Report your experience of making this submission, including the steps followed, commands used, and hurdles faced (within the file you created for the **Part 1**.
 ```
-
+Part 2 was a lot easier for me than Part 1. I created a file in the igorsteinmacher/INF502-Fall2019/Students folder, added my text, and then initiated a pull request. 
 
 
 ```
