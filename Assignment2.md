@@ -1,20 +1,22 @@
 1. 
 * **source code**
 
-    * def pythagoreanTheorem(length_a, length_b):
-    *   hypotenuse = (length_a**2 + length_b**2)**(1/2)
-    *   return hypotenuse
+     def pythagoreanTheorem(length_a, length_b):
+       hypotenuse = (length_a**2 + length_b**2)**(1/2)
+       return hypotenuse
     
 * **example output** 
 
-    * pythagoreanTheorem(2,2)
-    * Out[9]: 2.8284271247461903
+     >>> pythagoreanTheorem(2,2)
+     2.8284271247461903
 
-    * pythagoreanTheorem(3,4)
-    * Out[12]: 5.0
+     >>> pythagoreanTheorem(3,4)
+     5.0
 
-    * pythagoreanTheorem(11,48)
-    * Out[13]: 49.24428900898052
+     >>> pythagoreanTheorem(11,48)
+     49.24428900898052
+     
+     
 
 2. 
 
@@ -35,14 +37,14 @@ def list_mangler(list_in):
     return new_list
     
 **example output**    
-list_mangler([1,2,3,4])
-Out[17]: [3, 4, 9, 8]
+>>> list_mangler([1,2,3,4])
+[3, 4, 9, 8]
 
-list_mangler([2,3,5,10])
-Out[18]: [4, 9, 15, 20]
+>>> list_mangler([2,3,5,10])
+[4, 9, 15, 20]
 
-list_mangler([-2,0,11,5])
-Out[19]: [-4, 0, 33, 15]
+>>> ist_mangler([-2,0,11,5])
+[-4, 0, 33, 15]
 
 3. Write a function with the following signature: grade_calc(grades_in, to_drop).
 
@@ -72,17 +74,14 @@ def grade_calc(grades_in, to_drop):
     return letter_grade
 
 **example output**  
-grade_calc([100,90,80,95],2)
-[100, 95]
-Out[48]: 'A'
+>>> grade_calc([100,90,80,95],2)
+'A'
 
-grade_calc([100,0,0,90,50],1)
-[100, 90, 50, 0]
-Out[49]: 'D'
+>>> grade_calc([100,0,0,90,50],1)
+'D'
 
-grade_calc([70,75,70,65],0)
-[75, 70, 70, 65]
-Out[50]: 'C'
+>>> grade_calc([70,75,70,65],0)
+'C'
 
 4. 
 **approach:**
@@ -102,11 +101,11 @@ def odd_even_filter(numbers):
     return(even_list, odd_list)
     
 **example output**  
-odd_even_filter([1, 2, 3, 4, 5, 6, 7, 8, 9])
-Out[52]: ([2, 4, 6, 8], [1, 3, 5, 7, 9])
+>>> odd_even_filter([1, 2, 3, 4, 5, 6, 7, 8, 9])
+([2, 4, 6, 8], [1, 3, 5, 7, 9])
 
-odd_even_filter([3, 9, 43, 7])
-Out[53]: ([], [3, 9, 43, 7])
+>>> odd_even_filter([3, 9, 43, 7])
+([], [3, 9, 43, 7])
 
-odd_even_filter([71, 39, 98, 79, 5, 89, 50, 90, 2, 56])
-Out[54]: ([98, 50, 90, 2, 56], [71, 39, 79, 5, 89])
+>>> dd_even_filter([71, 39, 98, 79, 5, 89, 50, 90, 2, 56])
+([98, 50, 90, 2, 56], [71, 39, 79, 5, 89])
