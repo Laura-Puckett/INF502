@@ -19,7 +19,7 @@
 
 # 2. 
 
-**approach:** 
+**approach** 
 
      For each item in the original list, I checked to make the that the item was an integer, and then checked if it was even (if not even then I assumed it to be odd). I multiplied by 2 or 3 for even and odd numbers, respectivley, then appended each new number to a list of mangled numbers to be returned.
 
@@ -49,7 +49,7 @@
 
 # 3. 
 
-**approach:** 
+**approach** 
 
      In order to drop the lowest grades from the list, I first sorted the list from highest to lowest. Then used indexing to take only the elements of the list that weren't to be dropped and took the average of those values. Then I used if/elif/else statements to determine the letter grade to output for the associated average grade.
 
@@ -86,7 +86,7 @@
      'C'
 
 # 4. 
-**approach:**
+**approach**
 
      I made a blank list for even and odd numbers, then iterated through each number in the original list and appended it to the respective list. I output a tuple of both lists.
 
