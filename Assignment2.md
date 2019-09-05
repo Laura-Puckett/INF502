@@ -1,16 +1,16 @@
 1. 
-* **source code**
+**source code**
 
      def pythagoreanTheorem(length_a, length_b):
        hypotenuse = (length_a**2 + length_b**2)**(1/2)
        return hypotenuse
     
-* **example output** 
+**example output** 
 
      >>> pythagoreanTheorem(2,2)
      2.8284271247461903
-
-     >>> pythagoreanTheorem(3,4)
+     
+     >>> pythagoreanTheorem(3,4) 
      5.0
 
      >>> pythagoreanTheorem(11,48)
