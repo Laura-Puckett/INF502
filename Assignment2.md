@@ -1,11 +1,11 @@
 # 1. 
-**source code**
+## *source code*
 
      def pythagoreanTheorem(length_a, length_b):
        hypotenuse = (length_a**2 + length_b**2)**(1/2)
        return hypotenuse
     
-**example output** 
+## *example output*
 
      >>> pythagoreanTheorem(2,2)
      2.8284271247461903
@@ -19,14 +19,14 @@
 
 # 2. 
 
-**approach** 
+## *approach*
 
      For each item in the original list, I checked to make the that the item was an integer,
      and then checked if it was even (if not even then I assumed it to be odd). I multiplied 
      by 2 or 3 for even and odd numbers, respectivley, then appended each new number to a list
      of mangled numbers to be returned.
 
-**source code**
+## *source code*
 
      def list_mangler(list_in):
          new_list = []
@@ -39,7 +39,7 @@
                  new_list.append(new_number)
          return new_list
     
-**example output**  
+## *example output*  
 
      >>> list_mangler([1,2,3,4])
      [3, 4, 9, 8]
@@ -52,14 +52,14 @@
 
 # 3. 
 
-**approach** 
+## *approach* 
 
      In order to drop the lowest grades from the list, I first sorted the list from highest 
      to lowest. Then used indexing to take only the elements of the list that weren't to be 
      dropped and took the average of those values. Then I used if/elif/else statements to 
      determine the letter grade to output for the associated average grade.
 
-**source code**
+## *source code*
 
      def grade_calc(grades_in, to_drop):
          import statistics
@@ -80,7 +80,7 @@
 
          return letter_grade
 
-**example output**  
+## *example output*  
 
      >>> grade_calc([100,90,80,95],2)
      'A'
@@ -92,12 +92,12 @@
      'C'
 
 # 4. 
-**approach**
+## *approach*
 
      I made a blank list for even and odd numbers, then iterated through each number in 
      the original list and appended it to the respective list. I output a tuple of both lists.
 
-**source code**
+## *source code*
 
      def odd_even_filter(numbers):
          even_list = []
@@ -111,7 +111,7 @@
 
          return(even_list, odd_list)
     
-**example output**  
+## *example output*  
 
      >>> odd_even_filter([1, 2, 3, 4, 5, 6, 7, 8, 9])
      ([2, 4, 6, 8], [1, 3, 5, 7, 9])
