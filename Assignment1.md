@@ -47,14 +47,16 @@ A commit tree with a fork.
    Summarize the difference from master to the other branch.
 
 ```
-the calculate_this function has code to caluclate a sum in the master branch, but just prints text in the math branch Also, in the math branch, it has an extra line of a different file. 
+the calculate_this function has code to caluclate a sum in the master branch,
+but just prints text in the math branch Also, in the math branch, it has an 
+extra line of a different file. 
 
 ```
 
 4. Write a command sequence to merge the non-master branch into `master`
 
 ```
-git commit -all -m "commiting changes before merging math branch into master"
+git commit --all -m "commiting changes before merging math branch into master"
 git merge math
 git branch -d math
 
@@ -71,6 +73,9 @@ git checkout -b math master
    
 6. Edit B.py adding the following source code below the content you have there
 ```
+sudo open -e B.py
+
+pasted below text
 print 'I know math, look:'
 print 2+2
 
@@ -84,27 +89,34 @@ git commit --all -m "added lines to B.py"
 
 8. Change back to the `master` branch and change B.py adding the following source code (commit your change to `master`):
 ```
+git checkout master
+sudo open -e B.py
+
+pasted below text
 print 'hello world!'
 ```
 
 9. Write a command sequence to merge the `math` branch into `master` and describe what happened
 ```
-The merge failed because there was a merge conflict in B.py (since it had been edited in both branches, there's a merge conflict)
+git merge math
+
+The merge failed because there was a merge conflict in B.py (since it had been edited 
+in both branches, there's a merge conflict)
 
 ```
    
 10. Write a set of commands to abort the merge
 ```
 git merge --abort
-git reset
 
 ```
    
 11. Now repeat item 10, but proceed with the manual merge (Editing B.py). All implemented methods are needed. Explain your procedure
 ```
 I tried to merge, and got an error. Then I opened the B.py file (using sudo open -e B.py) and saw this:
-<<<<<<< HEAD
+
 # Another file that will receive a line of code... at least.
+<<<<<<< HEAD
 print 'hello world!'
 
 =======
@@ -113,12 +125,14 @@ print 2+2
 >>>>>>> math
 
 I then I incorporated both changes by editing the file to the following:
+
 # Another file that will receive a line of code... at least.
 print 'hello world!'
 print 'I know math, look:'
 print 2+2
 
-then I added the new file to the commit by using: git add B.py, then I comitted using: git commit -all -m 'resolved conflicts in B.py"
+then I added the new file to the commit by using: git add B.py,
+then I comitted using: git commit -all -m 'resolved conflicts in B.py"
 
 ```
 
@@ -134,7 +148,7 @@ git merge math
 
 4. Report your experience of making this submission, including the steps followed, commands used, and hurdles faced (within the file you created for the **Part 1**.
 ```
-Part 2 was a lot easier for me than Part 1. I created a file in the igorsteinmacher/INF502-Fall2019/Students folder, added my text, and then initiated a pull request. 
+Part 2 was a lot easier for me than Part 1. I created a file in the igorsteinmacher/INF502-Fall2019/Students folder, added my text, and then initiated a pull request. It took a couple tries to figure out how to format the file using markdown. 
 
 
 ```
