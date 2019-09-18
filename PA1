@@ -1,0 +1,130 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Sep 17 14:30:56 2019
+
+@author: laurapuckett
+"""
+def read_file(filename):
+    allLines = ""
+    file = open(filename,'r')
+    for line in file.readlines():
+        goodLine = line.rstrip('/n')
+        allLines = allLines + goodLine
+    file.close()
+    print(allLines)
+    return allLines
+
+def check_chains(stringA, stringB):
+    if len(stringA) != len(stringB):
+        print('ERROR, must have chains of equal length')
+    for letter in stringA:
+        if letter not in 'ACTG':
+            print('ERROR, there is a :', letter, 'in fileA.')
+            print('Please remove and supply with genetic data only (A, C, T, or G)')
+            
+    for letter in stringB:
+        if letter not in 'ACTG':
+            print('ERROR, there is a :', letter, 'in fileB.')
+            print('Please remove and supply with genetic data only (A, C, T, or G)')
+    if(method != 'nMatch' and method != 'nContig'):
+        print('Please enter "nMatch" or "nContig" as the method')
+        
+def checkShift(maxShift, stringLength):
+    if maxShift > (stringLength - 1):
+        maxShift = stringLength - 1
+    return maxShift
+
+
+def compare_chains_nMatch(stringA, stringB):
+    matches = 0
+    for i in range(len(stringA)):
+        if(stringA[i] == stringB[i]):
+            matches = matches + 1
+    return matches
+
+
+def compare_chains_maxContig(stringA, stringB):
+    longestContig = 0
+    contig = 0
+    for i in range(len(stringA)):
+        if(stringA[i] == stringB[i]):
+            contig = contig + 1
+            if (contig > longestContig):
+                    longestContig = contig
+        else:
+            contig = 0
+            
+    return longestContig
+
+    
+def shift(stringA, stringB, shifter):
+    if shifter > 0:
+        newStringA = '-'*shifter + stringA
+        newStringB = stringB + '-'*shifter
+    else:
+        newStringA = stringA + '-'*abs(shifter)
+        newStringB = '-'*abs(shifter) + stringB
+    return (newStringA, newStringB)
+
+    
+def findMaxMatches(stringA, stringB, maxShift, method):
+    maxMatches = 0
+    bestShift = 'NA'
+    for shiftNum in range(-1*maxShift, maxShift):
+        shiftedA, shiftedB = shift(stringA, stringB, shiftNum)
+        
+        if(method == 'nMatch'):
+            matches = compare_chains_maxContig(shiftedA, shiftedB)
+            
+        if(method == 'nContig'):
+            matches = compare_chains_nMatch(shiftedA, shiftedB)
+            
+        if matches > maxMatches:
+            maxMatches = matches
+            bestShift = shiftNum
+            bestShiftedA = shiftedA
+            bestShiftedB = shiftedB
+            
+    return (maxMatches, bestShift, bestShiftedA, bestShiftedB)
+
+
+def printOutput(method, maxMatches, bestShift, bestShiftedA, bestShiftedB):
+    print()
+    if(method == 'nMatch'):
+        print('The maximum number of matches is: ' + str(maxMatches))
+    elif(method == 'nContig'):
+        print('The longest contiguous matching chain is: ' + str(maxMatches))
+    
+    if(bestShift >0):
+        print('This occurs is the first chain is shifted ' + str(bestShift) + ' spaces to the right.')
+    elif(bestShift == 0):
+        print('This occurs when there is no shift.')
+    else:
+        print('This occurs when the first chain is shifted ' + str(abs(bestShift)) + ' spaces to the left.')
+    
+    if(method == 'nMatch'):
+        print('The chain shift with the greatest number of matches is shown below')
+    elif(method == 'nContig'):
+        print('The chain shift with the greatest length of contiguous matches is shown below')
+    
+    print(bestShiftedA)
+    print(bestShiftedB)
+
+
+def main(file1, file2, maxShift, method):
+## need to get stringA, stringB from file1 and file2
+    stringA = read_file(file1)
+    stringB = read_file(file2)
+    stringLength = len(stringA)
+    #check_chains(stringA, stringB)
+    maxShift = checkShift(maxShift, stringLength)
+    maxMatches, bestShift, bestShiftedA, bestShiftedB = findMaxMatches(stringA, stringB, maxShift, method)
+    printOutput(method, maxMatches, bestShift, bestShiftedA, bestShiftedB)
+
+file1 = '/Users/laurapuckett/Documents/INF502/file1.csv'
+file2 = '/Users/laurapuckett/Documents/INF502/file2.csv'
+maxShift = 10
+method = 'nMatch'
+
+main(file1, file2, maxShift, method)
