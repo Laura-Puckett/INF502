@@ -6,14 +6,11 @@ Created on Tue Sep 17 14:30:56 2019
 @author: laurapuckett
 """
 def read_file(filename):
-    allLines = ""
     file = open(filename,'r')
-    for line in file.readlines():
-        goodLine = line.rstrip('/n')
-        allLines = allLines + goodLine
+    content = file.read() 
     file.close()
-    print(allLines)
-    return allLines
+    print(content)
+    return content
 
 def check_chains(stringA, stringB):
     if len(stringA) != len(stringB):
@@ -122,8 +119,8 @@ def main(file1, file2, maxShift, method):
     maxMatches, bestShift, bestShiftedA, bestShiftedB = findMaxMatches(stringA, stringB, maxShift, method)
     printOutput(method, maxMatches, bestShift, bestShiftedA, bestShiftedB)
 
-file1 = '/Users/laurapuckett/Documents/INF502/file1.csv'
-file2 = '/Users/laurapuckett/Documents/INF502/file2.csv'
+file1 = '/Users/laurapuckett/Documents/INF502/file1.txt'
+file2 = '/Users/laurapuckett/Documents/INF502/file2.txt'
 maxShift = 10
 method = 'nMatch'
 
