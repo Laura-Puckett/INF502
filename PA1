@@ -6,23 +6,76 @@ Created on Tue Sep 17 14:30:56 2019
 @author: laurapuckett
 """
 
-def read_file(filename):
-    file = open(filename,'r')
-    content = file.read() 
-    file.close()
-    return content
+6Cs.txt
+7Cs.txt
+7mixed.txt
+aBadLetter.txt
+aNumber.txt
+empty.txt
 
-def check_chain(chain):
-    for letter in chain:
-        if letter not in 'actgACTG':
-            print('ERROR, there is a :', letter, 'in fileA.')
-            print('Please remove and supply with genetic data only (A, C, T, or G)')
-            exit
+def read_files():
+    path = '/Users/laurapuckett/Documents/INF502/'
+    chainList = []
+    for i in ['first','second']:
+        Done = False        
+        while Done is False:             
+            filename = input('Enter the name of the text file that contains the ' + i + ' chain:' )
             
-def check_chain_lengths(chainA, chainB):
-    if len(chainA) != len(chainB):
-        print('ERROR, must provide chains of equal length')
-        exit
+            try:
+                file = open((path + filename),'r')
+                if filename[-4:] != '.txt':
+                    raise ValueError
+                    print('Not a .txt file. Must enter the name of a .txt file.')
+                
+            except (FileNotFoundError, ValueError):
+                print(filename + ' does not exist.')
+                
+            else:
+                content = file.read() 
+                file.close()
+                badChain = False
+                for letter in content:
+                    try:
+                        if letter not in 'actgACTG':
+                            raise ValueError()
+                    except ValueError:
+                        print('there is a :', letter, 'in fileA.')
+                        print('Please provide another filename instead.')
+                        badChain = True
+                try:
+                    if content == "":
+                        raise ValueError()
+                    except ValueError:
+                        print('The file is empty. Please provide a file with a chain.')
+                        badChain = True
+                    
+                if badChain is False:
+                    Done = True
+                    chainList.append(content)
+                    
+    return chainList
+                
+
+            
+def get_chains():
+    chainsGood = False
+    while chainsGood is False:
+        try:
+            chainList = read_files()
+            chainA,chainB = chainList[0],chainList[1]
+            if len(chainA) != len(chainB):
+                raise ValueError
+            
+        except ValueError:
+            print('ERROR, must provide chains of equal length')
+            
+        else:
+            chainsGood = True
+    return (chainA, chainB)
+
+        
+            
+
         
 def getMethod():
     method = input('Type 1 for the method of maximum matches, or '
@@ -133,16 +186,7 @@ def printOutput(method, maxMatches, bestShift, bestShiftedA, bestShiftedB, chain
 
 def main():
 ## need to get chainA, chainB from file1 and file2
-    import sys
-    file1 = input('Enter the name of the file containing the first chain:' )
-    chainA = read_file(file1)
-    check_chain(chainA)
-
-    file2 = input('Enter the name of the file containing the second chain:' )
-    chainB = read_file(file2)
-    check_chain(chainB)
-    
-    check_chain_lengths(chainA, chainB)
+    chainA, chainB = get_chains()
     chainLength = len(chainA)
 
     method = getMethod()
