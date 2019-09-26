@@ -148,6 +148,8 @@ elements = {"H":{"row":1,"column":1,"atomic number":1,"name":"Hydrogen"},
 
 ## source code
 ```
+toContinue = True
+
 while toContinue == True:
 
     option = input('\n\nTo see all the information for an element, enter 1. \n'
@@ -158,15 +160,18 @@ while toContinue == True:
         
     if option == "1":
         element = input("Type the element's symbol: ")
-        print(info)
         info = elements[element]
-        print("\n\nThe name of the element is: " + str(info["name"]))
-        print("The atomic number of the element is: " + str(info["atomic number"]))
-        print("The row of the element is: " + str(info["row"]))
-        print("The column of the element is: " + str(info["column"]))
+        print("\n\nName: " + str(info["name"]))
+        print("Atomic number: " + str(info["atomic number"]))
+        print("Row: " + str(info["row"]))
+        print("Column: " + str(info["column"]))
         
     elif option == "2":
-        attribute = input('Input the property that you want to see the value for: ')
+        attribute = input('Input the property that you want to see the value for: '+
+            '\n[name]'+
+            '\n[atomic number]'+
+            '\n[row]'+
+            '\n[column]')
         for element in elements:    
             print("The " + str(attribute) + " of " + str(element) + " is " + str(elements[element][attribute]))
         
@@ -186,4 +191,5 @@ while toContinue == True:
         
     elif option == "5":
         toContinue = False
+
 ```
