@@ -6,12 +6,12 @@ Created on Tue Sep 17 14:30:56 2019
 @author: laurapuckett
 """
 
-6Cs.txt
-7Cs.txt
-7mixed.txt
-aBadLetter.txt
-aNumber.txt
-empty.txt
+#6Cs.txt
+#7Cs.txt
+#7mixed.txt
+#aBadLetter.txt
+#aNumber.txt
+#empty.txt
 
 def read_files():
     path = '/Users/laurapuckett/Documents/INF502/'
@@ -19,7 +19,7 @@ def read_files():
     for i in ['first','second']:
         Done = False        
         while Done is False:             
-            filename = input('Enter the name of the text file that contains the ' + i + ' chain:' )
+            filename = input('Enter the name of the text file that contains the ' + i + ' chain: ' )
             
             try:
                 file = open((path + filename),'r')
@@ -39,15 +39,15 @@ def read_files():
                         if letter not in 'actgACTG':
                             raise ValueError()
                     except ValueError:
-                        print('there is a :', letter, 'in fileA.')
+                        print('there is a "', letter, '" in fileA.')
                         print('Please provide another filename instead.')
                         badChain = True
                 try:
                     if content == "":
                         raise ValueError()
-                    except ValueError:
-                        print('The file is empty. Please provide a file with a chain.')
-                        badChain = True
+                except ValueError:
+                    print('The file is empty. Please provide a file with a chain.')
+                    badChain = True
                     
                 if badChain is False:
                     Done = True
@@ -55,7 +55,6 @@ def read_files():
                     
     return chainList
                 
-
             
 def get_chains():
     chainsGood = False
@@ -74,19 +73,19 @@ def get_chains():
     return (chainA, chainB)
 
         
-            
-
-        
 def getMethod():
-    method = input('Type 1 for the method of maximum matches, or '
-               'type 2 for the method of longest continuous matches:')
-    if(method == "1"):
-        method = 'nMatch'
-    elif(method == "2"):
-        method = 'nContig'
-    else:
-        print('You must enter "1" or "2" for method.')
-        exit
+    method = 0
+    while (method != "nMatch" and method != "nContig"):
+        print('What method do you want to use?')
+        method = input('[1] Maximum Matches: '
+                   '\n[2] Longest Continuous Match: ')
+        if(method == "1"):
+            method = 'nMatch'
+        elif(method == "2"):
+            method = 'nContig'
+        else:
+            print('You must enter "1" or "2" to select a method.')
+            exit
     return method
     
         
@@ -106,7 +105,7 @@ def compare_chains_nMatch(chainA, chainB):
     return matches
 
 
-def compare_chains_maxContig(chainA, chainB):
+def compare_chains_nContig(chainA, chainB):
     longestContig = 0
     contig = 0
     for i in range(len(chainA)):
@@ -133,59 +132,69 @@ def shift(chainA, chainB, shifter):
 def findMaxMatches(chainA, chainB, maxShift, method):
     maxMatches = 0
     bestShift = 'NA'
-    for shiftNum in range(-1*maxShift, maxShift):
-        shiftedA, shiftedB = shift(chainA, chainB, shiftNum)
-        
+    if maxShift >0:
+        for shiftNum in range(-1*maxShift, maxShift):
+            shiftedA, shiftedB = shift(chainA, chainB, shiftNum)
+            if(method == 'nMatch'):
+                matches = compare_chains_nMatch(shiftedA, shiftedB)  
+                
+            elif(method == 'nContig'):
+                matches = compare_chains_nContig(shiftedA, shiftedB)
+                
+            if matches >= maxMatches:
+                maxMatches = matches
+                bestShift = shiftNum
+                bestShiftedA = shiftedA
+                bestShiftedB = shiftedB
+    else:
         if(method == 'nMatch'):
-            matches = compare_chains_maxContig(shiftedA, shiftedB)
-            
-        if(method == 'nContig'):
-            matches = compare_chains_nMatch(shiftedA, shiftedB)
-            
-        if matches >= maxMatches:
-            maxMatches = matches
-            bestShift = shiftNum
-            bestShiftedA = shiftedA
-            bestShiftedB = shiftedB
+            matches = compare_chains_nMatch(chainA, chainB)  
+                
+        elif(method == 'nContig'):
+            matches = compare_chains_nContig(chainA, chainB)
+        
+        maxMatches = matches
+        bestShift = 0
+        bestShiftedA, bestShiftedB = chainA, chainB
             
     return (maxMatches, bestShift, bestShiftedA, bestShiftedB)
 
 
-def printOutput(method, maxMatches, bestShift, bestShiftedA, bestShiftedB, chainA, chainB):
-    print()
+def printOutput(method, maxMatches, maxShift, bestShift, bestShiftedA, bestShiftedB, chainA, chainB):
+    print('\n-------------RESULTS-------------')
+    print('\nWhen there is a maximum shift of ' + str(maxShift) + ' spaces, ')
+
     if(method == 'nMatch'):
         print('The maximum number of matches is: ' + str(maxMatches))
     
     elif(method == 'nContig'):
-        print('The longest contiguous matching chain is: ' + str(maxMatches))
+        print('\nThe longest contiguous matching chain length is: ' + str(maxMatches))
     
-    if (maxMatches > 0):
+    if (maxMatches > 0 and abs(bestShift) > 0):
     
         if(bestShift >0):
-            print('This occurs when the first chain is shifted ' + str(bestShift) + ' spaces to the right.')
-    
-        elif(bestShift == 0):
-            print('This occurs when there is no shift.')
+            print('\nAn example of when this occurs is when')
+            print('the first chain is shifted ' + str(bestShift) + ' spaces to the right.')
+
     
         else:
-            print('This occurs when the first chain is shifted ' + str(abs(bestShift)) + ' spaces to the left.')
+            print('\nAn example of when this occurs is when')
+            print('the first chain is shifted ' + str(abs(bestShift)) + ' spaces to the left.')
+
     
-    
-        if(method == 'nMatch'):
-            print('The chain shift with the greatest number of matches is shown below')
-        elif(method == 'nContig'):
-            print('The chain shift with the greatest length of contiguous matches is shown below')
+        print('\nThe chain combination with this shift is: ')
         print(bestShiftedA)
         print(bestShiftedB)
         
     else:
-        print('The two original chains are: ')
+        if(maxMatches > 0 and bestShift == 0):
+            print('\nAn example of when this occurs is when there is no shift.')
+        print('\nThe original chains are: ')
         print(chainA)
         print(chainB)
 
 
 def main():
-## need to get chainA, chainB from file1 and file2
     chainA, chainB = get_chains()
     chainLength = len(chainA)
 
@@ -194,11 +203,6 @@ def main():
     maxShift = getmaxShift(chainLength)
     
     maxMatches, bestShift, bestShiftedA, bestShiftedB = findMaxMatches(chainA, chainB, maxShift, method)
-    printOutput(method, maxMatches, bestShift, bestShiftedA, bestShiftedB, chainA, chainB)
-
-# file1 = '/Users/laurapuckett/Documents/INF502/file1.txt'
-# file2 = '/Users/laurapuckett/Documents/INF502/file2.txt'
-# maxShift = 10
-# method = 'nMatch'
+    printOutput(method, maxMatches, maxShift, bestShift, bestShiftedA, bestShiftedB, chainA, chainB)
 
 main()
