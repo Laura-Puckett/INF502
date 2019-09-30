@@ -1,6 +1,6 @@
 # Description
 
-I broke this problem up into smaller function, each have specific roles that are explained below. 
+I broke this problem up into smaller functions. Each have specific roles that are explained below. 
 
 ## the main workflow functions
 The main() function calls each other function and passes the necessary inputs.
