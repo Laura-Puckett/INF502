@@ -245,7 +245,24 @@ def main():
 main()
 ```
 # example runs
-## maximum matches example
+#### file content
+
+string1.txt: AGTCTATACGA
+string2.txt: CAGTTTATCCG
+
+testcontig1.txt: ACTCGTACCCTA
+testxontig2.txt: ATACCAACGCGT
+
+empty.txt: 
+6Cs.txt: CCCCCC
+7Cs.txt: CCCCCCC
+7mixed.txt: ACTCGTA
+aBadLetter.txt: ACTATxT
+
+
+aNumber.txt: "ACTAT3T"
+
+## [A} maximum matches example
 ```
 Enter the name of the text file that contains the first chain: string1.txt
 
@@ -270,7 +287,7 @@ The chain combination with this shift is:
 CAGTTTATCCG-
 ```
 
-## maximum contiguous chain example
+## [B] maximum contiguous chain example
 ```
 Enter the name of the text file that contains the first chain: testcontig1.txt
 
@@ -296,7 +313,7 @@ ACTCGTACCCTA----
 ----ATACCAACGCGT
 ```
 
-## error handling 
+## [C] error handling 
 The program continues to prompt the user for information when there is an error. This section represents a _single_ run of the program. The code is broken up with headers to emphasize different types of error handling in this single run.
 
 #### file doesn't exist
@@ -306,16 +323,15 @@ notafile.txt
 ERROR: the file: notafile.txt does not exist.
 Enter the name of the text file that contains the first chain: 
 ```
-#### different length of chains
-
+### empty file
 ```
-7Cs.txt
+Enter the name of the text file that contains the first chain: 
+empty.txt
+The file is empty. Please provide a file with a chain.
 
-Enter the name of the text file that contains the second chain: 
-6Cs.txt
-ERROR, must provide chains of equal length
 Enter the name of the text file that contains the first chain: 
 ```
+
 #### incorrect values in file (numbers, letters other than ACTG)
 ```
 aBadLetter.txt
@@ -334,8 +350,17 @@ Enter the name of the text file that contains the second chain:
 7Cs.txt
 What method do you want to use?
 ```
-#### invalid input for selecting method
 
+#### different length of chains
+```
+7Cs.txt
+
+Enter the name of the text file that contains the second chain: 
+6Cs.txt
+ERROR, must provide chains of equal length
+Enter the name of the text file that contains the first chain: 
+```
+#### invalid input for selecting method
 ```
 [1] Maximum Matches: 
 [2] Longest Continuous Match: 
@@ -346,7 +371,6 @@ What method do you want to use?
 [2] Longest Continuous Match: 
 1
 ```
-
 #### invalid input for max shift
 ```
 Enter the maximum spaces that the chain is allowed to shift by: 
@@ -371,6 +395,5 @@ The chain combination with this shift is:
 ---ACTCGTA
 CCCCCCC---
 ```
-
-NEED TO ADD EXAMPLE RUNS!!
 # Discussion of hurdles/issues
+
