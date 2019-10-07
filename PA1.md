@@ -244,5 +244,133 @@ def main():
 
 main()
 ```
+# example runs
+## maximum matches example
+```
+Enter the name of the text file that contains the first chain: string1.txt
+
+Enter the name of the text file that contains the second chain: string2.txt
+What method do you want to use?
+
+[1] Maximum Matches: 
+[2] Longest Continuous Match: 1
+
+Enter the maximum spaces that the chain is allowd to shift by: 4
+
+-------------RESULTS-------------
+
+When there is a maximum shift of 4 spaces, 
+The maximum number of matches is: 8
+
+An example of when this occurs is when
+the first chain is shifted 1 spaces to the right.
+
+The chain combination with this shift is: 
+-AGTCTATACGA
+CAGTTTATCCG-
+```
+
+## maximum contiguous chain example
+```
+Enter the name of the text file that contains the first chain: testcontig1.txt
+
+Enter the name of the text file that contains the second chain: testcontig2.txt
+What method do you want to use?
+
+[1] Maximum Matches: 
+[2] Longest Continuous Match: 2
+
+Enter the maximum spaces that the chain is allowd to shift by: 6
+
+-------------RESULTS-------------
+
+When there is a maximum shift of 6 spaces, 
+
+The longest contiguous matching chain length is: 4
+
+An example of when this occurs is when
+the first chain is shifted 4 spaces to the left.
+
+The chain combination with this shift is: 
+ACTCGTACCCTA----
+----ATACCAACGCGT
+```
+
+## error handling 
+The program continues to prompt the user for information when there is an error. This section represents a _single_ run of the program. The code is broken up with headers to emphasize different types of error handling in this single run.
+
+#### file doesn't exist
+```
+Enter the name of the text file that contains the first chain: 
+notafile.txt
+ERROR: the file: notafile.txt does not exist.
+Enter the name of the text file that contains the first chain: 
+```
+#### different length of chains
+
+```
+7Cs.txt
+
+Enter the name of the text file that contains the second chain: 
+6Cs.txt
+ERROR, must provide chains of equal length
+Enter the name of the text file that contains the first chain: 
+```
+#### incorrect values in file (numbers, letters other than ACTG)
+```
+aBadLetter.txt
+ERROR: there is a " x " in fileA.
+Please provide another filename instead.
+
+Enter the name of the text file that contains the first chain: 
+aNumber.txt
+ERROR: there is a " 3 " in fileA.
+Please provide another filename instead.
+
+Enter the name of the text file that contains the first chain: 
+7mixed.txt
+
+Enter the name of the text file that contains the second chain: 
+7Cs.txt
+What method do you want to use?
+```
+#### invalid input for selecting method
+
+```
+[1] Maximum Matches: 
+[2] Longest Continuous Match: 
+3
+You must enter "1" or "2" to select a method.
+What method do you want to use?
+[1] Maximum Matches: 
+[2] Longest Continuous Match: 
+1
+```
+
+#### invalid input for max shift
+```
+Enter the maximum spaces that the chain is allowed to shift by: 
+5 spaces
+ERROR, you must provide an integer value
+
+Enter the maximum spaces that the chain is allowed to shift by: 
+5
+```
+
+### and finally, with valid user input for everything, the code can finish running
+```
+-------------RESULTS-------------
+
+When there is a maximum shift of 5 spaces, 
+The maximum number of matches is: 2
+
+An example of when this occurs is when
+the first chain is shifted 3 spaces to the right.
+
+The chain combination with this shift is: 
+---ACTCGTA
+CCCCCCC---
+```
+
 NEED TO ADD EXAMPLE RUNS!!
 # Discussion of hurdles/issues
