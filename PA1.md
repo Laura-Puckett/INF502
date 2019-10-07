@@ -42,14 +42,13 @@ Positive and negative values of "shifter" result in a shift in different directi
 
 # Source Code
 ```
-
 def read_files():
     path = '/Users/laurapuckett/Documents/INF502/'
     chainList = []
     for i in ['first','second']:
         Done = False        
         while Done is False:             
-            filename = input('Enter the name of the text file that contains the ' + i + ' chain: ' )
+            filename = input('Enter the name of the text file that contains the ' + i + ' chain: \n' )
             
             try:
                 file = open((path + filename),'r')
@@ -58,7 +57,7 @@ def read_files():
                     print('Not a .txt file. Must enter the name of a .txt file.')
                 
             except (FileNotFoundError, ValueError):
-                print(filename + ' does not exist.')
+                print('ERROR: the file: ' + filename + ' does not exist.')
                 
             else:
                 content = file.read() 
@@ -69,7 +68,7 @@ def read_files():
                         if letter not in 'actgACTG':
                             raise ValueError()
                     except ValueError:
-                        print('there is a "', letter, '" in fileA.')
+                        print('ERROR: there is a "', letter, '" in fileA.')
                         print('Please provide another filename instead.')
                         badChain = True
                 try:
@@ -108,7 +107,7 @@ def getMethod():
     while (method != "nMatch" and method != "nContig"):
         print('What method do you want to use?')
         method = input('[1] Maximum Matches: '
-                   '\n[2] Longest Continuous Match: ')
+                   '\n[2] Longest Continuous Match: \n')
         if(method == "1"):
             method = 'nMatch'
         elif(method == "2"):
@@ -122,7 +121,7 @@ def getMethod():
 def getmaxShift(chainLength):
     haveShift = False
     while haveShift == False:
-        maxShift = input('Enter the maximum spaces that the chain is allowd to shift by: ')
+        maxShift = input('Enter the maximum spaces that the chain is allowed to shift by: \n')
         try:
             maxShift = abs(int(maxShift))
             if maxShift > (chainLength - 1):
