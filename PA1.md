@@ -245,24 +245,12 @@ def main():
 main()
 ```
 # example runs
-#### file content
 
-string1.txt: AGTCTATACGA
-string2.txt: CAGTTTATCCG
+## [A] maximum matches example
+file content:   
+string1.txt: AGTCTATACGA    
+string2.txt: CAGTTTATCCG    
 
-testcontig1.txt: ACTCGTACCCTA
-testxontig2.txt: ATACCAACGCGT
-
-empty.txt: 
-6Cs.txt: CCCCCC
-7Cs.txt: CCCCCCC
-7mixed.txt: ACTCGTA
-aBadLetter.txt: ACTATxT
-
-
-aNumber.txt: "ACTAT3T"
-
-## [A} maximum matches example
 ```
 Enter the name of the text file that contains the first chain: string1.txt
 
@@ -288,6 +276,10 @@ CAGTTTATCCG-
 ```
 
 ## [B] maximum contiguous chain example
+file content:   
+testcontig1.txt: ACTCGTACCCTA   
+testxontig2.txt: ATACCAACGCGT  
+
 ```
 Enter the name of the text file that contains the first chain: testcontig1.txt
 
@@ -315,6 +307,14 @@ ACTCGTACCCTA----
 
 ## [C] error handling 
 The program continues to prompt the user for information when there is an error. This section represents a _single_ run of the program. The code is broken up with headers to emphasize different types of error handling in this single run.
+
+file content:   
+empty.txt:  
+6Cs.txt: CCCCCC     
+7Cs.txt: CCCCCCC    
+7mixed.txt: ACTCGTA 
+aBadLetter.txt: ACTATxT 
+aNumber.txt: "ACTAT3T"  
 
 #### file doesn't exist
 ```
@@ -397,3 +397,14 @@ CCCCCCC---
 ```
 # Discussion of hurdles/issues
 
+Before I added the error-catching, the code was pretty straightforward. I started with the first method (comparing the maximum number of matches). I wrote the function for this first, before thinking about shiftng the chains. This was pretty straightforward; just loop through all the characters in a chain and count up the number that match the ohter chain. 
+
+Thinking about the second method (maximum contiguous chain) was a little harder. I struggled to decide how to find the longest match when I first tried. After thinking, I realized that it actually wasn't that different from the first method. Rather than just adding up each match, I created a temporary counter than only included the consecutive matches (if there was not a match, then it was reset to 0). I updated the variable the number of matches if the temporary counter was the highest recorded so far. 
+
+When I was thinking about how to apply the shift to the chains, I decided that it would be easiest to implement with left/right shifts being represented by the sign of the shift number. If the user inputs a max shift of 3, then the program needs to try left and right shifts, so the values to loop through are actually (-3, -2, -1, 0, 1, 2, 3) not just (0, 1, 2, 3). Adding "-" to the left and right of the chains when there was a shift allowed the chains to remain the same length, and also ensured that the shifting process wouldn't create any matches ("-" would never be the same as any of the original characers in the chain, so it would never count as a match). 
+
+Once I had my two functions for how to count matches and a function for shifting chains, finding the maximum match was pretty simple. I just had to loop through the different possible shifts, and I just had to find out which shift resulted in the greatest matches, and record the relevenat information from that shift. 
+
+
+The main hurdle for me was figuring out how to structure so that it would continue to completion after getting an invalid input from the user. It took some strategizing to decide where to put the "try" statements and while loops. 
+For example, if the user enters two files with a different number of characters in each, then the user needs to be prompted to enter both files again. Originally, I didn't have a while loop to prompt the user to enter files again. I repeated code in multiple places before realizing that I just needed another while loop. The nested structure of the get_chains() and read_files() functions is the solution I came up with. 
