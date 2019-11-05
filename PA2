@@ -10,6 +10,9 @@ import requests, datetime, csv
 
 # token = "3d2220af798386b96df6bfcefcf223c57b5c1679"
 # url = "https://api.github.com/repos/" + projectName + '/' + projectName + "/pulls?access_token=" + token
+#url = "https://api.github.com/repos/?access+token=" + token # my attempt at getting all repos
+#response = requests.get(url+per_page + "&page=1").json()
+
 
 class github_project:
     def __init__(self, name, owner, description, homepage, project_license, n_forks, watchers):
@@ -54,45 +57,40 @@ class pull_request:
         self.additions = additions
         self.deletions = deletions
         self.changed_files = changed_files
-
-#url = "https://api.github.com/repos/?access+token=" + token # my attempt at getting all repos
-
-
-response = requests.get(url+per_page + "&page=1").json()
-
-    
-# collect pull request info for a given project
-projectName = 'jabref'
-url = 'https://api.github.com/search/issues?q=is:pr+repo:'+ projectName + '/' + projectName
-per_page = "&perpage=30" 
-response = requests.get(url+per_page + "&page=1")
-
-for item in response.json():
-    pull_req_num = item['number']
-    
-    url = 'https://api.github.com/repos/' + projectName + '/' + projectName + 'pulls/' + str(pull_req_num)
-    response2 = requests.get(url).json()
-    
-    new_pull_request = pull_request(title = item['title'],
-                                    number = item['number'],
-                                    body = iem['body'],
-                                    state = item['state'],
-                                    creation_date = item['created_at'],
-                                    closing_date = item['closed_at'],
-                                    user = user(name = item['user']),
-                                    n_commits = item,
-                                    additions = item,
-                                    deletions = item,
-                                    changed_files = item)
-
-print(response.json()) # this is a list of dictionaries
-
-
-
-
+        
 def to_CSV(objectName, filename):
     with open(filename, mode='w') as file:
         writer = csv.writer(file, delimiter=',')
     for row in objectName.text_version():
         writer.writerow(row)
     
+
+# need to add code to get list of projects??
+    
+# collect pull request info for a given project
+projectName = 'jabref'
+url = 'https://api.github.com/search/issues?q=is:pr+repo:'+ projectName + '/' + projectName
+per_page = "&perpage=30" 
+pull_requests = requests.get(url+per_page + "&page=1").json()
+
+
+for request in pull_requests():
+    pull_req_num = request['number']
+    
+    url = 'https://api.github.com/repos/' + projectName + '/' + projectName + 'pulls/' + str(pull_req_num)
+    pulls = requests.get(url).json()
+    
+    new_pull_request = pull_request(title = request['title'],
+                                    number = request['number'],
+                                    body = request['body'],
+                                    state = request['state'],
+                                    creation_date = request['created_at'],
+                                    closing_date = request['closed_at'],
+                                    user = user(name = request['user']),
+                                    n_commits = pulls,
+                                    additions = pulls,
+                                    deletions = pulls,
+                                    changed_files = pulls)
+    to_CSV(new_pull_request, projectName + '/' + owner + '-' + projectName + '.csv')
+
+
