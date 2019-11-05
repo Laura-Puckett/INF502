@@ -1,0 +1,98 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Nov  4 19:12:40 2019
+
+@author: laurapuckett
+"""
+        
+import requests, datetime, csv
+
+# token = "3d2220af798386b96df6bfcefcf223c57b5c1679"
+# url = "https://api.github.com/repos/" + projectName + '/' + projectName + "/pulls?access_token=" + token
+
+class github_project:
+    def __init__(self, name, owner, description, homepage, project_license, n_forks, watchers):
+        self.name = name
+        self.owner = owner
+        self.description = description
+        self.homepage = homepage
+        self.project_license = project_license
+        self.n_forks = n_forks
+        self.watchers = watchers
+        self.date_of_collection = datetime.datetime.today()
+        
+        def print_info(self):
+            print(self.owner + '/' + self.name + ': ' + self.description + ' (number of stars)')
+        
+        def text_version(self):
+            "code to make a csv from this object"
+      
+class user:
+    def __init__(self, name, login, n_pull_requests, has_a_twitter, n_repos, n_projects, n_followers, n_following, n_contributions):
+        self.name = name
+        self.login = login
+        self.n_pull_requests = n_pull_requests
+        self.has_a_twitter = has_a_twitter
+        self.n_repos = n_repos,
+        self.n_projects = n_projects
+        self.n_followers = n_followers
+        self.n_following = n_following
+        self.n_contributions = n_contributions
+        
+
+class pull_request:
+    def __init__(self, title, number, body, state, creation_date, closing_date, user, n_commits, additions, deletions, changed_files):
+        self.title = title
+        self.number = number
+        self.body = body
+        self.state = state
+        self.creation_date = creation_date
+        self.closing_date = closing_date
+        self.user = user
+        self.n_commits = n_commits
+        self.additions = additions
+        self.deletions = deletions
+        self.changed_files = changed_files
+
+#url = "https://api.github.com/repos/?access+token=" + token # my attempt at getting all repos
+
+
+response = requests.get(url+per_page + "&page=1").json()
+
+    
+# collect pull request info for a given project
+projectName = 'jabref'
+url = 'https://api.github.com/search/issues?q=is:pr+repo:'+ projectName + '/' + projectName
+per_page = "&perpage=30" 
+response = requests.get(url+per_page + "&page=1")
+
+for item in response.json():
+    pull_req_num = item['number']
+    
+    url = 'https://api.github.com/repos/' + projectName + '/' + projectName + 'pulls/' + str(pull_req_num)
+    response2 = requests.get(url).json()
+    
+    new_pull_request = pull_request(title = item['title'],
+                                    number = item['number'],
+                                    body = iem['body'],
+                                    state = item['state'],
+                                    creation_date = item['created_at'],
+                                    closing_date = item['closed_at'],
+                                    user = user(name = item['user']),
+                                    n_commits = item,
+                                    additions = item,
+                                    deletions = item,
+                                    changed_files = item)
+
+print(response.json()) # this is a list of dictionaries
+
+
+
+
+def to_CSV(objectName, filename):
+    with open(filename, mode='w') as file:
+        writer = csv.writer(file, delimiter=',')
+    for row in objectName.text_version():
+        writer.writerow(row)
+    
